@@ -3,16 +3,28 @@
 #include<time.h>
 #include<algorithm>
 #include<stdio.h>
+#include<string.h>
+#include<string>
 #include "fstream"
 using namespace std;
 bool judge(int line, int column, int a, int sudoku[9][9]);
 int sudoku[9][9] = { 0 };
 int N;
 void produce_sudoku(int a, int b, int z);
-int main()
+int main(int argc,char* argv[])
 {
-	printf("Please input N:");
-	cin >> N;
+	string ss = argv[2];
+	int len = ss.length();
+	for (int i = 0; i < len;i++) {
+		if (ss[i]<'0' || ss[i]>'9') {
+			printf("error input");
+			return 0;
+		}
+		else {
+			N = N * 10 + ss[i] - '0';
+		}
+	}
+	freopen("sudoku.txt","w",stdout);
 	srand((unsigned)time(NULL));
 	sudoku[0][0] = 9;
 	for (int i = 1; i<9; i++)
@@ -39,12 +51,12 @@ void produce_sudoku(int i, int j, int z)
 	}
 	if (i == 9 && j == 0)
 	{
-		freopen("sudoku.txt", "w", stdout);
 		for (int k = 0; k<9; k++)
 		{
 			for (int l = 0; l<9; l++)
 			{
-				printf("%d ", sudoku[k][l]);
+				putchar(sudoku[k][l]+'0');
+				putchar(' ');
 			}
 			putchar('\n');
 		}
